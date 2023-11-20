@@ -1,7 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
 import Home from './Home';
-import SanskritQuotes from './SanskritQuotes';
+import { Parallax, ParallaxLayer } from '@react-spring/parallax';
+import Sparkle from 'react-sparkle'
+
 
 function App() {
   return (
@@ -19,8 +21,17 @@ function App() {
         >
           Learn React
         </a> */}
+
+        <Parallax pages={2} style={{top: '0', left: '0'}} class="animation">
+          <ParallaxLayer offset={0} speed={0.25}>
+            <div class="animation_layer parallax" id="artback"></div>
+          </ParallaxLayer>
+          <ParallaxLayer offset={0} speed={0.5}>
+            <div class="animation_layer parallax" id="man1"></div>
+          </ParallaxLayer>
+        </Parallax>
+        {/* <Sparkle /> */}
         <Home/>
-        <SanskritQuotes/>
       </header>
     </div>
   );
