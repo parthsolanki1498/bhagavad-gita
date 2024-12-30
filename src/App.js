@@ -2,36 +2,41 @@ import logo from './logo.svg';
 import './App.css';
 import Home from './Home';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
-import Sparkle from 'react-sparkle'
-
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {/* <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a> */}
-
-        <Parallax pages={2} style={{top: '0', left: '0'}} class="animation">
+        <Parallax pages={2} style={{ top: '0', left: '0' }} className="animation">
+          {/* Background Layer */}
           <ParallaxLayer offset={0} speed={0.25}>
-            <div class="animation_layer parallax" id="artback"></div>
+            <div className="animation_layer parallax" id="artback"></div>
           </ParallaxLayer>
+
+          {/* Foreground Layer */}
           <ParallaxLayer offset={0} speed={0.5}>
-            <div class="animation_layer parallax" id="man1"></div>
+            <div className="animation_layer parallax" id="man1"></div>
+          </ParallaxLayer>
+
+          {/* Sticky Text Block */}
+          <ParallaxLayer
+            sticky={{ start: 0, end: 1 }} // Stick from page 0 to 1
+            style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+          >
+            <div id="textblock">
+              <div id="textblock-container">
+                <div id="textblock-title">Welcome to Gita</div>
+              </div>
+            </div>
+          </ParallaxLayer>
+
+          {/* Home Page */}
+          <ParallaxLayer offset={2} speed={0.5}>
+            <div className="home">
+              <Home />
+            </div>
           </ParallaxLayer>
         </Parallax>
-        {/* <Sparkle /> */}
-        <Home/>
       </header>
     </div>
   );
