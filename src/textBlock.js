@@ -37,6 +37,30 @@ function TextBlock() {
     }
   };
 
+  const handlePlay = () => {
+    if (!shlokData) return;
+
+    // Create speech synthesis instance
+    const utterance = new SpeechSynthesisUtterance(shlokData.slok);
+
+    // Get all voices and select a male voice (simulating a Pandit tone)
+    const voices = speechSynthesis.getVoices();
+    const maleVoice = voices.find((voice) =>
+      voice.name.toLowerCase().includes("male") || voice.lang === "hi-IN"
+    );
+
+    // Set the selected voice
+    utterance.voice = maleVoice || voices[0]; // Fallback to first available voice if no match
+
+    // Set language and rate for a more authentic feel
+    utterance.lang = "hi-IN"; // Hindi or Sanskrit (support for Sanskrit might vary based on voice)
+    utterance.rate = 0.9; // Slightly slower for clarity
+    utterance.pitch = 1.2; // Slightly higher pitch for a Pandit-like tone
+
+    // Play the utterance
+    speechSynthesis.speak(utterance);
+  };
+
   return (
     <div id="textblock">
       <div id="textblock-container">
@@ -81,6 +105,11 @@ function TextBlock() {
 
               {/* Display the Shlok (Sanskrit) */}
               <p className="shlok-text">{shlokData.slok}</p>
+
+              {/* Play Button */}
+              <button className="play-button" onClick={handlePlay}>
+                Play Shlok
+              </button>
             </div>
           </div>
         )}
