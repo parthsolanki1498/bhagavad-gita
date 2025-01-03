@@ -1,68 +1,78 @@
-"use client";
-
+import React from "react";
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
-import TextBlock from "./textBlock";
+import { useSpring, animated, useScroll } from "@react-spring/web";
 import "./App.css";
+import TextBlock from "./textBlock";
 
-import {
-  Animator,
-  ScrollContainer,
-  ScrollPage,
-  batch,
-  Fade,
-  FadeIn,
-  FadeOut,
-  Move,
-  MoveIn,
-  MoveOut,
-  Sticky,
-  StickyIn,
-  StickyOut,
-  Zoom,
-  ZoomIn,
-  ZoomOut,
-} from "react-scroll-motion";
 
 function App() {
-  const ZoomInScrollOut = batch(StickyIn(), FadeIn(), ZoomIn());
-  const FadeUp = batch(Fade(), Move(), Sticky());
+  // Track the scroll position to trigger the zoom effect
+  const { scrollYProgress } = useScroll();
+  
+  // Define the zoom effect based on scroll position
+  const zoomStyle = useSpring({
+    transform: scrollYProgress.to(
+      [0, 0.2, 1], 
+      ["scale(1)", "scale(1.1)", "scale(1.5)"]
+    ), // Zoom from scale(1) to scale(1.5) as user scrolls
+    config: { mass: 1, tension: 30, friction: 50 }, // Make the zoom smooth
+  });
 
   return (
     <div className="App">
-      <ScrollContainer>
-        <ScrollPage>
-          <Animator animation={ZoomInScrollOut}>
-            <span></span>
-          </Animator>
-        </ScrollPage>
+      <Parallax pages={2} style={{ top: "0", left: "0" }} className="animation">
+        {/* Parallax Layers */}
+        <ParallaxLayer offset={0} speed={0.1}>
+          <animated.div
+            className="animation_layer parallax"
+            id="layer6"
+            style={zoomStyle} // Apply zoom effect on scroll
+          ></animated.div>
+        </ParallaxLayer>
+        <ParallaxLayer offset={0} speed={0.3}>
+          <animated.div
+            className="animation_layer parallax"
+            id="layer5"
+            style={zoomStyle} // Apply zoom effect on scroll
+          ></animated.div>
+        </ParallaxLayer>
 
-        <ScrollPage>
-          <Animator animation={ZoomInScrollOut}>
-            <span style={{ fontSize: "40px" }}>BHAGWAD GITA</span>
-          </Animator>
-        </ScrollPage>
-        </ScrollContainer>
-        <Parallax pages={2} style={{ top: "0", left: "0" }} class="animation">
-          <ParallaxLayer offset={0} speed={0.3}>
-            <div className="animation_layer parallax" id="layer5"></div>
-          </ParallaxLayer>
+        <ParallaxLayer offset={0} speed={0.4}>
+          <animated.div
+            className="animation_layer parallax"
+            id="layer4"
+            style={zoomStyle} // Apply zoom effect on scroll
+          ></animated.div>
+        </ParallaxLayer>
 
-          <ParallaxLayer offset={0} speed={0.4}>
-            <div className="animation_layer parallax" id="layer4"></div>
-          </ParallaxLayer>
+        <ParallaxLayer offset={0} speed={0.5}>
+          <animated.div
+            className="animation_layer parallax"
+            id="layer2"
+            style={zoomStyle} // Apply zoom effect on scroll
+          ></animated.div>
+        </ParallaxLayer>
 
-          <ParallaxLayer offset={0} speed={0.5}>
-            <div className="animation_layer parallax" id="layer2"></div>
-          </ParallaxLayer>
+        <ParallaxLayer offset={0} speed={0.8}>
+          <animated.div
+            className="animation_layer parallax"
+            id="layer3"
+            style={zoomStyle} // Apply zoom effect on scroll
+          ></animated.div>
+        </ParallaxLayer>
 
-          <ParallaxLayer offset={0} speed={0.8}>
-            <div className="animation_layer parallax" id="layer3"></div>
-          </ParallaxLayer>
+        <ParallaxLayer offset={0} speed={1}>
+          <animated.div
+            className="animation_layer parallax"
+            id="artback"
+            style={zoomStyle} // Apply zoom effect on scroll
+          ></animated.div>
+        </ParallaxLayer>
 
-          <ParallaxLayer offset={0} speed={1}>
-            <div className="animation_layer parallax" id="artback"></div>
-          </ParallaxLayer>
-        </Parallax>
+        <ParallaxLayer offset={1} speed={0.25}>
+         <TextBlock />
+        </ParallaxLayer>
+      </Parallax>
     </div>
   );
 }

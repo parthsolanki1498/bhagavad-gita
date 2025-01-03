@@ -1,5 +1,5 @@
 #textblock {
-  background-color: #210002;
+  background-color: #ffffff;
   height: 100vh;
 }
 
@@ -92,11 +92,18 @@
 }
 
 #layer5 {
-    background-image: url(./images/dwaraka_layer_5.png);
-    background-repeat: no-repeat;
-    background-size: contain;
-    z-index: 5;
-  }
+  background-image: url(./images/dwaraka_layer_5.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: 5;
+}
+
+#layer6 {
+  background-image: url(./images/dwaraka_layer_6.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: 6;
+}
 
 /*
   #logoland {
