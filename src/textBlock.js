@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import tts from "sanskrit-tts";
 import "./textBlock.css";
 
 function TextBlock() {
@@ -37,28 +38,25 @@ function TextBlock() {
     }
   };
 
-  const handlePlay = () => {
+  const handlePlay = async () => {
     if (!shlokData) return;
 
-    // Create speech synthesis instance
-    const utterance = new SpeechSynthesisUtterance(shlokData.slok);
+    // Get the Sanskrit shlok text from the API response
+    const sanskritShlok = shlokData.slok;
 
-    // Get all voices and select a male voice (simulating a Pandit tone)
-    const voices = speechSynthesis.getVoices();
-    const maleVoice = voices.find((voice) =>
-      voice.name.toLowerCase().includes("male") || voice.lang === "hi-IN"
-    );
+    try {
+      // Get the URL for the Sanskrit text
+      const audioUrl = tts.getURL(sanskritShlok, { script: "devanagari" });
 
-    // Set the selected voice
-    utterance.voice = maleVoice || voices[0]; // Fallback to first available voice if no match
+      // Create an audio element and set its source to the audio URL
+      const audio = new Audio(audioUrl);
 
-    // Set language and rate for a more authentic feel
-    utterance.lang = "hi-IN"; // Hindi or Sanskrit (support for Sanskrit might vary based on voice)
-    utterance.rate = 0.9; // Slightly slower for clarity
-    utterance.pitch = 1.2; // Slightly higher pitch for a Pandit-like tone
-
-    // Play the utterance
-    speechSynthesis.speak(utterance);
+      // Play the audio
+      audio.play();
+    } catch (err) {
+      console.error("Error in text-to-speech conversion:", err);
+      setError("Error while playing the shlok. Please try again.");
+    }
   };
 
   return (
