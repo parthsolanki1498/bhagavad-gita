@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import tts from "sanskrit-tts";
 import "./textBlock.css";
+import tts from "sanskrit-tts"; // Importing sanskrit-tts
 
 function TextBlock() {
   const [chapter, setChapter] = useState("");
@@ -39,30 +39,42 @@ function TextBlock() {
   };
 
   const handlePlay = async () => {
-    if (!shlokData) return;
-
-    // Get the Sanskrit shlok text from the API response
-    const sanskritShlok = shlokData.slok;
-
+    if (!shlokData) return;  // Ensure shlokData is available
+  
+    // Generate the audio URL using sanskrit-tts
+    const audioUrl = tts.getURL(shlokData.slok, { script: "devanagari" });
+    console.log("Generated Audio URL: ", audioUrl);  // Log URL for debugging
+  
+    if (!audioUrl) {
+      console.error("Failed to generate valid audio URL.");
+      return;
+    }
+  
+    // Create an audio object using the generated URL
+    const audio = new Audio(audioUrl);
+  
+    // Handle potential errors when loading or playing audio
+    audio.onerror = (error) => {
+      console.error("Audio playback failed: ", error);
+      alert("Error playing audio.");
+    };
+  
+    // Attempt to play the audio (make sure it's triggered by user interaction)
     try {
-      // Get the URL for the Sanskrit text
-      const audioUrl = tts.getURL(sanskritShlok, { script: "devanagari" });
-
-      // Create an audio element and set its source to the audio URL
-      const audio = new Audio(audioUrl);
-
-      // Play the audio
-      audio.play();
-    } catch (err) {
-      console.error("Error in text-to-speech conversion:", err);
-      setError("Error while playing the shlok. Please try again.");
+      await audio.play();
+      console.log("Audio is playing");
+    } catch (error) {
+      console.error("Error playing audio:", error);
+      alert("Error playing the audio.");
     }
   };
+  
 
   return (
+    <div>
     <div id="textblock">
       <div id="textblock-container">
-        <h1 id="textblock-title">Search Bhagavad Gita Shlok</h1>
+        <h1 id="textblock-title">Bhagavad Gita Shlok</h1>
 
         {/* Search Form for Chapter and Slok */}
         <form onSubmit={handleSearch} className="search-form">
@@ -98,7 +110,7 @@ function TextBlock() {
           <div id="search-results">
             <div className="shlok-card">
               <h2 className="shlok-header">
-                {`Chapter ${shlokData.chapter}, Verse ${shlokData.verse}`}
+              {`Chapter ${shlokData.chapter}, Verse ${shlokData.verse}`}
               </h2>
 
               {/* Display the Shlok (Sanskrit) */}
@@ -112,8 +124,8 @@ function TextBlock() {
           </div>
         )}
       </div>
-
-      <footer id="textblock-footer">
+    </div>
+    <footer id="textblock-footer">
         Project Created With 🧡 for&nbsp;
         <a id="textblock-devsense" href="https://youtube.com/c/DevSense19">
           Krishna

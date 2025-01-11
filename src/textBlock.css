@@ -1,32 +1,44 @@
+@font-face {
+  font-family: 'Samarkan';
+  src: url('./components/samarkan/SAMAN___.TTF') format('truetype'); /* Path to your local font */
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* General Styling */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Noto Serif', serif; /* Classic serif font for a vintage look */
 }
 
 body {
-  background-color: #f4f4f9;
-  color: #333;
+  background-color: #fff7e6; /* Light parchment-like background color */
+  color: #4e4b3c; /* Dark brown text, like ink on parchment */
   padding: 2rem;
 }
 
 /* TextBlock Styling */
 #textblock {
   max-width: 800px;
+  max-height: 500px;
   margin: 0 auto;
-  background-color: #fff;
+  background-color: #f4f0d7; /* Slightly faded background for an aged look */
   border-radius: 8px;
   padding: 2rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 2px solid #d3c1a0; /* Thin border to resemble old paper edges */
+  margin-top: 5rem; /* Adds space from the top of the screen */
 }
 
 #textblock-title {
-  font-size: 2rem;
+  font-size: 2.2rem;
   margin-bottom: 1.5rem;
   text-align: center;
   color: #2c3e50;
+  font-family: 'Samarkan', sans-serif; /* Applying Samarkan font */
+  letter-spacing: 1px; /* Slight letter-spacing for an ancient feel */
 }
 
 #textblock-container {
@@ -50,18 +62,19 @@ body {
 
 .search-input {
   padding: 0.75rem;
-  font-size: 1rem;
+  font-size: 1.1rem;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid #bca68a; /* Subtle brown border */
   width: 150px;
   text-align: center;
+  background-color: #f0e0c9; /* Light tan background for input fields */
 }
 
 .search-button {
   padding: 0.75rem;
   font-size: 1.1rem;
   border-radius: 4px;
-  background-color: #3498db;
+  background-color: #8e7d4e; /* Muted mustard yellow for the button */
   color: #fff;
   border: none;
   cursor: pointer;
@@ -70,17 +83,18 @@ body {
 }
 
 .search-button:disabled {
-  background-color: #bdc3c7;
+  background-color: #d3c6a1; /* Lighter brown when disabled */
   cursor: not-allowed;
 }
 
 .search-button:hover:enabled {
-  background-color: #2980b9;
+  background-color: #7d6a4e; /* Slightly darker shade for hover */
 }
 
 .error-message {
-  color: #e74c3c;
+  color: #b04d4d; /* Dark red for error message */
   text-align: center;
+  font-style: italic;
 }
 
 #search-results {
@@ -90,60 +104,73 @@ body {
 }
 
 .shlok-card {
-  background-color: #ecf0f1;
+  background-color: #fff8e1; /* Off-white background to simulate aged paper */
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #d3c1a0; /* Light border around each card */
 }
 
 .shlok-header {
   font-size: 1.5rem;
-  color: #2980b9;
+  color: #8e7d4e; /* Soft golden brown */
   margin-bottom: 1rem;
+  font-family: 'Georgia', serif;
+  letter-spacing: 0.5px; /* Slightly spaced for elegance */
 }
 
 .shlok-text {
   font-size: 1.3rem;
-  color: #2c3e50;
+  color: #4e4b3c; /* Dark brown text */
   text-align: center;
   white-space: pre-wrap;
+  font-family: 'Times New Roman', serif; /* Classic serif font for text */
+  line-height: 1.6;
 }
 
-footer {
-  text-align: center;
-  margin-top: 2rem;
+/* Footer Styling for screen-only */
+#textblock-footer {
+  position: fixed;   /* Fix the footer to the bottom of the screen */
+  bottom: 0;         /* Align it to the bottom of the screen */
+  width: 100%;       /* Ensure it spans the entire width of the screen */
+  text-align: center; /* Center the text inside the footer */
+  padding: 1rem;      /* Add padding for spacing */
+  background-color: #f4f0d7; /* Make it match the background of the page */
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1); /* Optional: adds a shadow to the top for a distinct separation */
 }
 
-footer a {
+/* Link Styling in Footer */
+#textblock-footer a {
   color: #3498db;
   text-decoration: none;
   font-weight: bold;
 }
 
-footer a:hover {
+#textblock-footer a:hover {
   text-decoration: underline;
 }
 
 
+
+
 /* Play Button Styling */
 .play-button {
-    background-color: #2980b9;
-    color: white;
-    padding: 0.75rem;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 1rem;
-    width: 100%;
-    transition: background-color 0.3s ease;
-  }
-  
-  .play-button:hover {
-    background-color: #3498db;
-  }
-  
-  .play-button:focus {
-    outline: none;
-  }
-  
+  background-color: #8e7d4e; /* Same vintage yellow for the button */
+  color: white;
+  padding: 0.75rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 1rem;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.play-button:hover {
+  background-color: #7d6a4e; /* Slightly darker shade for hover */
+}
+
+.play-button:focus {
+  outline: none;
+}
